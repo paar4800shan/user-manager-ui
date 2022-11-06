@@ -57,9 +57,8 @@ function Registration() {
         <Stack gap={3} className={`align-items-center`}>
           {REGISTRATION_FORM.map((field, index) => {
             return (
-              <Col xs={12} md={8} lg={6}>
+              <Col key={index} xs={12} md={8} lg={6}>
                 <FormField
-                  key={index}
                   type={field.type}
                   fieldName={field.fieldName}
                   name={field.name}
