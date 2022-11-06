@@ -4,6 +4,7 @@ import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
 import { REGISTRATION_FORM } from "../../data/RegistrationForm";
+import { validateRegistrationForm } from "../../validators/AuthValidator";
 import styles from "./Registration.module.css";
 
 const registrationCredentialsFormat = {
@@ -30,6 +31,14 @@ function Registration() {
   };
 
   const clickedRegister = () => {
+    // Validation
+    let validation = validateRegistrationForm(registrationData);
+
+    // if (!validation.status) {
+    //   console.log(validation.message);
+    //   return;
+    // }
+
     console.log(registrationData);
   };
 

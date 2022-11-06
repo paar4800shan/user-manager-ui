@@ -3,6 +3,7 @@ import { Col, Container, Row, Stack } from "react-bootstrap";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
+import { validateLoginForm } from "../../validators/AuthValidator";
 import styles from "./Login.module.css";
 
 const loginCredentialsFormat = {
@@ -22,8 +23,16 @@ function Login() {
   };
 
   const clickedLogin = () => {
+    // Validation
+    let validation = validateLoginForm(loginCredentials);
+
+    if (!validation.status) {
+      console.log(validation.message);
+      return;
+    }
+
     console.log(loginCredentials);
-  }
+  };
 
   return (
     <Container className={`py-4`}>

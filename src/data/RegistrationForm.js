@@ -30,7 +30,7 @@ export const REGISTRATION_FORM = [
         name:"occupation",
     },
     {
-        type:"text",
+        type:"date",
         fieldName:"Date Of Birth",
         name:"dob",
     },
