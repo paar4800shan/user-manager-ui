@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
@@ -12,6 +13,8 @@ const loginCredentialsFormat = {
 };
 
 function Login() {
+  let navigate = useNavigate();
+
   const [loginCredentials, setloginCredentials] = useState(
     loginCredentialsFormat
   );
@@ -45,7 +48,7 @@ function Login() {
       <Row>
         <Stack gap={3} className={`align-items-center`}>
           {/* User ID */}
-          <Col xs={6}>
+          <Col xs={12} md={8} lg={6}>
             <FormField
               type={"text"}
               fieldName={"User ID"}
@@ -70,6 +73,13 @@ function Login() {
 
           <Col xs={6}>
             <Button text={"Login"} onClickMethod={clickedLogin} />
+          </Col>
+
+          <Col xs={6}>
+            <Button
+              text={"Don't have an account? Register"}
+              onClickMethod={() => navigate("/register")}
+            />
           </Col>
         </Stack>
       </Row>

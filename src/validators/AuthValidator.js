@@ -63,6 +63,13 @@ export const validateRegistrationForm = (data) => {
     };
   }
 
+  if (!validateEmptyData(data.dob)) {
+    return {
+      status: false,
+      message: "Invalid Date of Birth",
+    };
+  }
+
   if (!validatePassword(data.password)) {
     return {
       status: false,
