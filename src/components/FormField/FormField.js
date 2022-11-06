@@ -2,7 +2,15 @@ import React from "react";
 import styles from "./FormField.module.css";
 import { Col, Form, Stack } from "react-bootstrap";
 
-function FormField({ type, fieldName, placeholder, name, value, setter }) {
+function FormField({
+  type,
+  fieldName,
+  name,
+  value,
+  setter,
+  isReadOnly = false,
+  dropdownValues = [],
+}) {
   const renderFormField = () => {
     if (["text", "password", "date"].includes(type)) {
       return (
@@ -15,7 +23,6 @@ function FormField({ type, fieldName, placeholder, name, value, setter }) {
               <Col xs={6}>
                 <Form.Control
                   type={type}
-                  placeholder={placeholder}
                   value={value[name]}
                   onChange={(e) =>
                     setter({
@@ -23,7 +30,42 @@ function FormField({ type, fieldName, placeholder, name, value, setter }) {
                       value: e.target.value,
                     })
                   }
+                  readOnly={isReadOnly && "readonly"}
                 />
+              </Col>
+            </Stack>
+          </Form.Group>
+        </>
+      );
+    } else if (["dropdown"].includes(type)) {
+      return (
+        <>
+          <Form.Group className="mb-8">
+            <Stack direction="horizontal" className={`justify-content-center`}>
+              <Col xs={4}>
+                <Form.Label>{fieldName}</Form.Label>
+              </Col>
+              <Col xs={6}>
+                <Form.Select
+                  value={value[name]}
+                  onChange={(e) =>
+                    setter({
+                      key: name,
+                      value: e.target.value,
+                    })
+                  }
+                >
+                  <option value="" disabled={true}>
+                    Select from dropdown
+                  </option>
+                  {dropdownValues.map((dropdownValue, index) => {
+                    return (
+                      <option key={index} value={dropdownValue}>
+                        {dropdownValue}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
               </Col>
             </Stack>
           </Form.Group>
