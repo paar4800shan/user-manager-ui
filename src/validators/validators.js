@@ -12,3 +12,8 @@ export const validatePassword = (data) => {
   if (data.trim().length < 8) return false;
   return true;
 };
+
+export const validateDropdown = (data, values) => {
+  if (!values.includes(data)) return false;
+  return true;
+};
