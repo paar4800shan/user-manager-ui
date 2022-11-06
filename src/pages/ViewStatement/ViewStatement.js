@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
+import { showErrorToastNotification } from "../../components/ToastNotification";
 import { VIEW_STATEMENT_FORM } from "../../data/ViewStatementForm";
 import { validateViewStatementForm } from "../../validators/TransactionsValidator";
 import styles from "./ViewStatement.module.css";
@@ -31,7 +32,7 @@ function ViewStatement() {
     let validation = validateViewStatementForm(viewStatementData);
 
     if (!validation.status) {
-      console.log(validation.message);
+      showErrorToastNotification(validation.message);
       return;
     }
     console.log(viewStatementData);
@@ -79,7 +80,10 @@ function ViewStatement() {
           })}
 
           <Col xs={6}>
-            <Button text={"View Statement"} onClickMethod={clickedViewStatement} />
+            <Button
+              text={"View Statement"}
+              onClickMethod={clickedViewStatement}
+            />
           </Col>
         </Stack>
       </Row>

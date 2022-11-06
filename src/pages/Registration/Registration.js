@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
+import { showErrorToastNotification } from "../../components/ToastNotification";
 import { REGISTRATION_FORM } from "../../data/RegistrationForm";
 import { validateRegistrationForm } from "../../validators/AuthValidator";
 import styles from "./Registration.module.css";
@@ -38,7 +39,7 @@ function Registration() {
     let validation = validateRegistrationForm(registrationData);
 
     if (!validation.status) {
-      console.log(validation.message);
+      showErrorToastNotification(validation.message);
       return;
     }
 

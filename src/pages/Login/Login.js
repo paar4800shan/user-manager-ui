@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
+import { showErrorToastNotification } from "../../components/ToastNotification";
 import { LOGIN_FORM } from "../../data/LoginForm";
 import { validateLoginForm } from "../../validators/AuthValidator";
 import styles from "./Login.module.css";
@@ -31,7 +32,7 @@ function Login() {
     let validation = validateLoginForm(loginCredentials);
 
     if (!validation.status) {
-      console.log(validation.message);
+      showErrorToastNotification(validation.message);
       return;
     }
 
