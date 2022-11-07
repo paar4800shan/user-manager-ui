@@ -17,3 +17,10 @@ export const validateDropdown = (data, values) => {
   if (!values.includes(data)) return false;
   return true;
 };
+
+export const validateLoanAmount = (data, balance) => {
+  console.log(data);
+  console.log(balance);
+  if(data > balance) return false;
+  return true;
+}

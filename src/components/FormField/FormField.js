@@ -12,7 +12,7 @@ function FormField({
   dropdownValues = [],
 }) {
   const renderFormField = () => {
-    if (["text", "password", "date"].includes(type)) {
+    if (["text", "password", "date", "number"].includes(type)) {
       return (
         <>
           <Form.Group className="mb-8">

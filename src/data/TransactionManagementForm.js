@@ -1,5 +1,5 @@
 export const TRANSACTION_TYPE_VALUES = ["Withdraw", "Deposit"];
-export const VIEW_STATEMENT_FORM = [
+export const TRANSACTION_MANAGEMENT_FORM = [
   {
     type: "dropdown",
     fieldName: "Transaction Type",
@@ -7,16 +7,8 @@ export const VIEW_STATEMENT_FORM = [
     dropdownValues: TRANSACTION_TYPE_VALUES,
   },
   {
-    type: "date",
-    fieldName: "Transaction Period From",
-    name: "fromDate",
-  },
-  {
-    type: "date",
-    fieldName: "Transaction Period To",
-    name: "toDate",
+    type: "number",
+    fieldName: "Enter the loan amount",
+    name: "loanAmount",
   },
 ];
-
-
-
