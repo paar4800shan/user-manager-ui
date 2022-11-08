@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
@@ -18,9 +19,12 @@ const transactionManagementDataFormat = {
   };
 
   function TransactionManagement() {
+
     const [transactionManagementData, settransactionManagementData] = useState(
       transactionManagementDataFormat
     );
+
+    let navigate = useNavigate();
   
     const changeTransactionManagementData = (args) => {
       let prevState = transactionManagementData;
@@ -84,6 +88,10 @@ const transactionManagementDataFormat = {
     
               <Col xs={6}>
                 <Button text={"Apply"} onClickMethod={clickedTransactionManagement} />
+              </Col>
+
+              <Col xs={6}>
+                <Button text={"Back to Operations"} onClickMethod={() => navigate("/user-operations")} />
               </Col>
             </Stack>
           </Row>

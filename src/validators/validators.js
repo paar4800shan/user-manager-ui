@@ -18,9 +18,12 @@ export const validateDropdown = (data, values) => {
   return true;
 };
 
+export const validateNegativeAmount = (data) => {
+  if(data <= 0) return false;
+  return true;
+}
+
 export const validateLoanAmount = (data, balance) => {
-  console.log(data);
-  console.log(balance);
   if(data > balance) return false;
   return true;
 }

@@ -8,7 +8,7 @@ export const TRANSACTION_MANAGEMENT_FORM = [
   },
   {
     type: "number",
-    fieldName: "Enter the loan amount",
+    fieldName: "Enter the amount",
     name: "loanAmount",
   },
 ];
