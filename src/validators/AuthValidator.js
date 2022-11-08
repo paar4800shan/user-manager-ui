@@ -1,4 +1,4 @@
-import { validateContact, validateEmptyData, validatePassword } from "./validators";
+import { validateContact, validateEmptyData, validatePassword, validateLoanAmount } from "./validators";
 
 export const validateLoginForm = (data) => {
   if (data.userID.trim().length === 0) {
@@ -81,6 +81,19 @@ export const validateRegistrationForm = (data) => {
     return {
       status: false,
       message: "Passwords not matching",
+    };
+  }
+
+  return {
+    status: true,
+  };
+};
+
+export const validateLoanInfo = (data) => { 
+  if (!validateLoanAmount(data.loanAmount)) {
+    return {
+      status: false,
+      message: "Invalid Amount",
     };
   }
 
