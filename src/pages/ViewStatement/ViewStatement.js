@@ -17,6 +17,8 @@ const viewStatementDataFormat = {
 };
 
 function ViewStatement() {
+  let navigate = useNavigate();
+
   const [viewStatementData, setviewStatementData] = useState(
     viewStatementDataFormat
   );
@@ -83,6 +85,13 @@ function ViewStatement() {
             <Button
               text={"View Statement"}
               onClickMethod={clickedViewStatement}
+            />
+          </Col>
+
+          <Col xs={6}>
+            <Button
+              text={"Back to Operations"}
+              onClickMethod={() => navigate("/operations")}
             />
           </Col>
         </Stack>
