@@ -93,7 +93,7 @@ export const validateRegistrationForm = (data) => {
 };
 
 export const validateLoanInfo = (data) => { 
-  if (!validateLoanAmount(data.loanAmount)) {
+  if (!validateLoanAmount(data.loanAmount) || isNaN(data.loanAmount)) {
     return {
       status: false,
       message: "Invalid Loan Amount",
