@@ -5,7 +5,7 @@ import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
 import { showErrorToastNotification } from "../../components/ToastNotification";
 import { LOAN_APPLICATION_FORM } from "../../data/LoanApplicationForm";
-import { validateLoanInfo } from "../../validators/AuthValidator";
+import { validateLoanInfo, validateBranchName} from "../../validators/AuthValidator";
 import styles from "./LoanApplication.module.css";
 
 const loanInfoFormat = {
@@ -27,13 +27,20 @@ const changeLoanInfo = (args) => {
 
 const clickedSubmit = () => {
     // Validation
+    let dropdownvalidation = validateBranchName(loanInfo);
+
+    if (!dropdownvalidation.status) {
+      showErrorToastNotification(dropdownvalidation.message);
+      return;
+    }
+    
     let validation = validateLoanInfo(loanInfo);
 
     if (!validation.status) {
       showErrorToastNotification(validation.message);
       return;
     }
-
+    
     console.log(loanInfo);
   };
 

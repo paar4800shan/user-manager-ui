@@ -1,4 +1,7 @@
-import { validateContact, validateEmptyData, validatePassword, validateLoanAmount } from "./validators";
+import { validateContact, validateEmptyData, validatePassword, validateLoanAmount, validateDropdown } from "./validators";
+import {
+  BRANCH_VALUES,
+} from "../data/LoanApplicationForm";
 
 export const validateLoginForm = (data) => {
   if (data.userID.trim().length === 0) {
@@ -93,11 +96,24 @@ export const validateLoanInfo = (data) => {
   if (!validateLoanAmount(data.loanAmount)) {
     return {
       status: false,
-      message: "Invalid Amount",
+      message: "Invalid Loan Amount",
     };
   }
 
   return {
     status: true,
+  };
+};
+
+export const validateBranchName = (data) => {
+    if (!validateDropdown(data.branch, BRANCH_VALUES)) {
+      return {
+        status: false,
+        message: "Invalid Branch Name",
+      };
+    }
+  
+    return {
+      status: true,
   };
 };
