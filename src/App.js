@@ -8,6 +8,7 @@ import Registration from "./pages/Registration/Registration";
 import ViewStatement from "./pages/ViewStatement/ViewStatement";
 import TransactionManagement from "./pages/TransactionManagement/TransactionManagement"
 import UserOperations from "./pages/UserOperations/UserOperations"
+import LoanApplication from "./pages/LoanApplication/LoanApplication";
 
 toast.configure();
 function App() {
@@ -15,12 +16,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           <Route path="/view-statement" element={<ViewStatement />} />
           <Route path="/transaction-management" element={<TransactionManagement />} />
           <Route path="/user-operations" element={<UserOperations />} />
+          <Route path="/loan-application" element={<LoanApplication />} />  
         </Routes>
       </Router>
     </div>

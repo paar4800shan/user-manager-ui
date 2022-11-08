@@ -19,11 +19,16 @@ export const validateDropdown = (data, values) => {
 };
 
 export const validateNegativeAmount = (data) => {
-  if(data <= 0) return false;
+  if (data <= 0) return false;
   return true;
-}
+};
 
-export const validateLoanAmount = (data, balance) => {
-  if(data > balance) return false;
+export const validateTransactionAmount = (data, balance) => {
+  if (data > balance) return false;
   return true;
-}
+};
+//validate loan amount
+export const validateLoanAmount = (data) => {
+  if (parseInt(data) > 100000 || parseInt(data) < 0) return false;
+  return true;
+};
