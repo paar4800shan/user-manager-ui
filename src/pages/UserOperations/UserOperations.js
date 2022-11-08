@@ -1,11 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import Button from "../../components/Button/Button";
 import Heading from "../../components/Heading/Heading";
+import { Auth, SetAuth } from "../../App";
+import { showSuccessToastNotification } from "../../components/ToastNotification";
 
 function UserOperations() {
+  const auth = useContext(Auth);
+  const setAuth = useContext(SetAuth);
   let navigate = useNavigate();
+
+  useEffect(() => {
+
+    
+
+    return () => {};
+  }, []);
+
+  const logout = () => {
+    setAuth(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("userID");
+    showSuccessToastNotification(<p>Logged out</p>);
+  };
 
   return (
     <Container className={"py-4"}>
@@ -36,6 +54,10 @@ function UserOperations() {
               text={"View Statement"}
               onClickMethod={() => navigate("/statement")}
             />
+          </Col>
+
+          <Col xs={15}>
+            <Button text={"Logout"} onClickMethod={logout} />
           </Col>
         </Stack>
       </Row>

@@ -14,7 +14,9 @@ export const validatePassword = (data) => {
 };
 
 export const validateDropdown = (data, values) => {
-  if (!values.includes(data)) return false;
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].name === data) return false;
+  }
   return true;
 };
 

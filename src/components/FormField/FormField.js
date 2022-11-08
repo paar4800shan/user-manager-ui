@@ -60,8 +60,8 @@ function FormField({
                   </option>
                   {dropdownValues.map((dropdownValue, index) => {
                     return (
-                      <option key={index} value={dropdownValue}>
-                        {dropdownValue}
+                      <option key={index} value={dropdownValue.id}>
+                        {dropdownValue.name}
                       </option>
                     );
                   })}

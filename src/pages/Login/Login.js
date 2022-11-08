@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { apiLogin } from "../../api/api";
+import { Auth, SetAuth } from "../../App";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
@@ -16,6 +18,8 @@ const loginCredentialsFormat = {
 
 function Login() {
   let navigate = useNavigate();
+  const auth = useContext(Auth);
+  const setAuth = useContext(SetAuth);
 
   const [loginCredentials, setloginCredentials] = useState(
     loginCredentialsFormat
@@ -27,7 +31,7 @@ function Login() {
     setloginCredentials({ ...prevState });
   };
 
-  const clickedLogin = () => {
+  const clickedLogin = async () => {
     // Validation
     let validation = validateLoginForm(loginCredentials);
 
@@ -36,7 +40,29 @@ function Login() {
       return;
     }
 
-    console.log(loginCredentials);
+    let resp = await apiLogin({
+      userID: Number(loginCredentials.userID),
+      password: loginCredentials.password,
+    });
+
+    console.log(resp);
+
+    if (resp === undefined) {
+      showErrorToastNotification(<p>Please try again after sometime</p>);
+    } else {
+      if (resp.status === 200) {
+        // Success
+        setAuth(true);
+        let respData = resp.data.split(";;;");
+        localStorage.setItem("userID", respData[0]);
+        localStorage.setItem("token", respData[1]);
+        navigate("/operations");
+      } else if (resp.status >= 400 && resp.status < 500) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      } else if (resp.status >= 500 && resp.status < 600) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      }
+    }
   };
 
   return (

@@ -1,10 +1,14 @@
-import { validateContact, validateEmptyData, validatePassword, validateLoanAmount, validateDropdown } from "./validators";
 import {
-  BRANCH_VALUES,
-} from "../data/LoanApplicationForm";
+  validateContact,
+  validateEmptyData,
+  validatePassword,
+  validateLoanAmount,
+  validateDropdown,
+} from "./validators";
+import { BRANCH_VALUES } from "../data/LoanApplicationForm";
 
 export const validateLoginForm = (data) => {
-  if (data.userID.trim().length === 0) {
+  if (data.userID.trim().length === 0 || isNaN(parseFloat(data.userID))) {
     return {
       status: false,
       message: "Invalid User ID",
@@ -92,7 +96,7 @@ export const validateRegistrationForm = (data) => {
   };
 };
 
-export const validateLoanInfo = (data) => { 
+export const validateLoanInfo = (data) => {
   if (!validateLoanAmount(data.loanAmount) || isNaN(data.loanAmount)) {
     return {
       status: false,
@@ -105,15 +109,15 @@ export const validateLoanInfo = (data) => {
   };
 };
 
-export const validateBranchName = (data) => {
-    if (!validateDropdown(data.branch, BRANCH_VALUES)) {
-      return {
-        status: false,
-        message: "Invalid Branch Name",
-      };
-    }
-  
+export const validateBranchName = (data, branchValues) => {
+  if (!validateDropdown(data.branch, branchValues)) {
     return {
-      status: true,
+      status: false,
+      message: "Invalid Branch Name",
+    };
+  }
+
+  return {
+    status: true,
   };
 };
