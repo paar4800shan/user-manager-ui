@@ -3,6 +3,8 @@ import axios from "axios";
 const url_login = "customer/loginCustomer";
 const url_register = "customer/saveCustomer";
 const url_loan = "customer/saveLoan";
+const url_transaction = "/transactionProceed";
+const url_statement = "/transactionPeriod";
 const url_getAllBranches = "branch/all";
 
 const api = axios.create({
@@ -39,6 +41,39 @@ export const apiLoan = async (data) => {
         Authorization: localStorage.getItem("token"),
       },
     });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error.response);
+    return error.response;
+  }
+};
+
+export const apiTransaction = async (data) => {
+  try {
+    const response = await api.post(`${url_transaction}`, data, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error.response);
+    return error.response;
+  }
+};
+
+export const apiStatement = async (data) => {
+  try {
+    const response = await api.get(
+      `${url_statement}?transactionType=${data.transactionType}&tperiodfrom=${data.fromDate}&tperiodto=${data.toDate}`,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
     console.log(response);
     return response;
   } catch (error) {

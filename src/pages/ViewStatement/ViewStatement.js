@@ -8,7 +8,8 @@ import { showErrorToastNotification } from "../../components/ToastNotification";
 import { VIEW_STATEMENT_FORM } from "../../data/ViewStatementForm";
 import { validateViewStatementForm } from "../../validators/TransactionsValidator";
 import styles from "./ViewStatement.module.css";
-import Table from  '../../components/Table/Table';
+import Table from "../../components/Table/Table";
+import { apiStatement } from "../../api/api";
 
 const viewStatementDataFormat = {
   userID: "C12345",
@@ -18,19 +19,20 @@ const viewStatementDataFormat = {
 };
 
 // getTransactions(userID, date)
-const transactions = [
-  {
-    id: 0,
-    type: 'Deposit',
-    amount: '1000',
-    date: '12/09/2022'
-  }
-]
+// const transactions = [
+//   {
+//     id: 0,
+//     type: "Deposit",
+//     amount: "1000",
+//     date: "12/09/2022",
+//   },
+// ];
 
 function ViewStatement() {
   let navigate = useNavigate();
 
   const [viewTable, setviewTable] = useState(false);
+  const [transactionsData, settransactionsData] = useState([]);
   const [viewStatementData, setviewStatementData] = useState(
     viewStatementDataFormat
   );
@@ -41,7 +43,7 @@ function ViewStatement() {
     setviewStatementData({ ...prevState });
   };
 
-  const clickedViewStatement = () => {
+  const clickedViewStatement = async () => {
     // Validation
     let validation = validateViewStatementForm(viewStatementData);
 
@@ -50,10 +52,26 @@ function ViewStatement() {
       return;
     }
     console.log(viewStatementData);
-    setviewTable(true);
-    console.log(viewTable)
+
+    let resp = await apiStatement(viewStatementData);
+
+    console.log(resp);
+
+    if (resp === undefined) {
+      showErrorToastNotification(<p>Please try again after sometime</p>);
+    } else {
+      if (resp.status === 200) {
+        // Success
+        setviewTable(true);
+        settransactionsData(resp.data);
+      } else if (resp.status >= 400 && resp.status < 500) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      } else if (resp.status >= 500 && resp.status < 600) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      }
+    }
   };
-  if(!viewTable){
+  if (!viewTable) {
     return (
       <Container className={`py-4`}>
         <Row>
@@ -86,7 +104,6 @@ function ViewStatement() {
                     name={field.name}
                     value={viewStatementData}
                     setter={changeViewStatementData}
-                  
                     dropdownValues={
                       field.hasOwnProperty("dropdownValues") &&
                       field.dropdownValues
@@ -94,7 +111,7 @@ function ViewStatement() {
                   />
                 </Col>
               );
-            })} 
+            })}
 
             <Col xs={6}>
               <Button
@@ -112,18 +129,14 @@ function ViewStatement() {
           </Stack>
         </Row>
       </Container>
-
-      
     );
-  }
-  else
-    return (<Container>
-      <Table shouldRender={viewTable} data = {transactions}></Table>
-      <Button text={"Back"}
-                onClickMethod={() => setviewTable(false)}
-              />
-      </Container>);
-
+  } else
+    return (
+      <Container>
+        <Table shouldRender={viewTable} data={transactionsData}></Table>
+        <Button text={"Back"} onClickMethod={() => setviewTable(false)} />
+      </Container>
+    );
 }
 
 export default ViewStatement;

@@ -1,10 +1,7 @@
 export const TRANSACTION_TYPE_VALUES = [
-  {id:"Withdraw",
-  name:"Withdraw"
-},
-{id:"Deposit",
-  name:"Deposit"
-}];
+  { id: "Withdraw", name: "Withdraw" },
+  { id: "Deposit", name: "Deposit" },
+];
 export const VIEW_STATEMENT_FORM = [
   {
     type: "dropdown",
@@ -23,6 +20,3 @@ export const VIEW_STATEMENT_FORM = [
     name: "toDate",
   },
 ];
-
-
-

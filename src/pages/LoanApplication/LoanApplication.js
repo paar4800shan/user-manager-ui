@@ -31,7 +31,6 @@ function LoanApplication() {
   const [loanSuccessData, setloanSuccessData] = useState("");
 
   useEffect(() => {
-    console.log(localStorage.getItem("userID"));
     changeLoanInfo({ key: "userID", value: localStorage.getItem("userID") });
 
     getBranchesList();

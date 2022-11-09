@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
 import { TRANSACTION_MANAGEMENT_FORM } from "../../data/TransactionManagementForm";
-import { showErrorToastNotification } from "../../components/ToastNotification";
+import {
+  showErrorToastNotification,
+  showSuccessToastNotification,
+} from "../../components/ToastNotification";
 import { validateTransactionManagementForm } from "../../validators/TransactionManagementValidator";
 import styles from "./TransactionManagement.module.css";
+import { apiTransaction } from "../../api/api";
 
 const transactionManagementDataFormat = {
   userID: "C12345",
   transactionType: "",
   loanAmount: "",
-  balance: "2000",
 };
 
 function TransactionManagement() {
@@ -23,13 +26,22 @@ function TransactionManagement() {
 
   let navigate = useNavigate();
 
+  useEffect(() => {
+    changeTransactionManagementData({
+      key: "userID",
+      value: localStorage.getItem("userID"),
+    });
+
+    return () => {};
+  }, []);
+
   const changeTransactionManagementData = (args) => {
     let prevState = transactionManagementData;
     prevState[args.key] = args.value;
     settransactionManagementData({ ...prevState });
   };
 
-  const clickedTransactionManagement = () => {
+  const clickedTransactionManagement = async () => {
     // Validation
     let validation = validateTransactionManagementForm(
       transactionManagementData
@@ -41,6 +53,27 @@ function TransactionManagement() {
       return;
     }
     console.log(transactionManagementData);
+
+    let resp = await apiTransaction({
+      amount: transactionManagementData.loanAmount,
+      transactiontype: transactionManagementData.transactionType,
+    });
+
+    console.log(resp);
+
+    if (resp === undefined) {
+      showErrorToastNotification(<p>Please try again after sometime</p>);
+    } else {
+      if (resp.status === 200) {
+        // Success
+        showSuccessToastNotification("Transaction Success");
+        navigate("/operations");
+      } else if (resp.status >= 400 && resp.status < 500) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      } else if (resp.status >= 500 && resp.status < 600) {
+        showErrorToastNotification(<p>{resp.data}</p>);
+      }
+    }
   };
 
   return (

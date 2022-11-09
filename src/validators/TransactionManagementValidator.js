@@ -7,17 +7,10 @@ import {
 } from "./validators";
 
 export const validateTransactionManagementForm = (data) => {
-  if (!validateDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)) {
+  if (validateDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)) {
     return {
       status: false,
       message: "Invalid Transaction Type",
-    };
-  }
-
-  if (!validateTransactionAmount(data.loanAmount, data.balance)) {
-    return {
-      status: false,
-      message: "Invalid Amount",
     };
   }
 
