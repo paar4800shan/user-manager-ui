@@ -4,7 +4,8 @@ import {Button as BSButton} from "react-bootstrap"
 
 function Button({ text, onClickMethod }) {
     return (
-        <BSButton variant="primary" onClick={onClickMethod}>{text}</BSButton>
+        <BSButton data-testid = "button" variant="primary" onClick={onClickMethod}>{text}</BSButton>
+
     )
 }
 
