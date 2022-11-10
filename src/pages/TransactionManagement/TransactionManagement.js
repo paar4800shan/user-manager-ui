@@ -48,18 +48,14 @@ function TransactionManagement() {
     );
 
     if (!validation.status) {
-      console.log(validation.message);
       showErrorToastNotification(validation.message);
       return;
     }
-    console.log(transactionManagementData);
 
     let resp = await apiTransaction({
       amount: transactionManagementData.loanAmount,
       transactiontype: transactionManagementData.transactionType,
     });
-
-    console.log(resp);
 
     if (resp === undefined) {
       showErrorToastNotification(<p>Please try again after sometime</p>);

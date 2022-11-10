@@ -2,15 +2,15 @@ import {
   TRANSACTION_TYPE_VALUES,
   VIEW_STATEMENT_FORM,
 } from "../data/ViewStatementForm";
-import { validateDropdown, validateEmptyData } from "./validators";
+import { validateDropdown, validateEmptyData, validateTransactionDropdown } from "./validators";
 
 export const validateViewStatementForm = (data) => {
-  // if (!validateDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)) {
-  //   return {
-  //     status: false,
-  //     message: "Invalid Transaction Type",
-  //   };
-  // }
+  if (!validateTransactionDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)) {
+    return {
+      status: false,
+      message: "Invalid Transaction Type",
+    };
+  }
 
   if (!validateEmptyData(data.fromDate)) {
     return {

@@ -6,7 +6,10 @@ import { Auth, SetAuth } from "../../App";
 import Button from "../../components/Button/Button";
 import FormField from "../../components/FormField/FormField";
 import Heading from "../../components/Heading/Heading";
-import { showErrorToastNotification } from "../../components/ToastNotification";
+import {
+  showErrorToastNotification,
+  showSuccessToastNotification,
+} from "../../components/ToastNotification";
 import { LOGIN_FORM } from "../../data/LoginForm";
 import { validateLoginForm } from "../../validators/AuthValidator";
 import styles from "./Login.module.css";
@@ -45,8 +48,6 @@ function Login() {
       password: loginCredentials.password,
     });
 
-    console.log(resp);
-
     if (resp === undefined) {
       showErrorToastNotification(<p>Please try again after sometime</p>);
     } else {
@@ -56,11 +57,12 @@ function Login() {
         let respData = resp.data.split(";;;");
         localStorage.setItem("userID", respData[0]);
         localStorage.setItem("token", respData[1]);
+        showSuccessToastNotification("Logged in successfully");
         navigate("/operations");
       } else if (resp.status >= 400 && resp.status < 500) {
-        showErrorToastNotification(<p>{resp.data}</p>);
+        showErrorToastNotification(resp.data);
       } else if (resp.status >= 500 && resp.status < 600) {
-        showErrorToastNotification(<p>{resp.data}</p>);
+        showErrorToastNotification(resp.data);
       }
     }
   };

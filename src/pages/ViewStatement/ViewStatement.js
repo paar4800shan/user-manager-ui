@@ -51,11 +51,8 @@ function ViewStatement() {
       showErrorToastNotification(validation.message);
       return;
     }
-    console.log(viewStatementData);
 
     let resp = await apiStatement(viewStatementData);
-
-    console.log(resp);
 
     if (resp === undefined) {
       showErrorToastNotification(<p>Please try again after sometime</p>);

@@ -48,8 +48,6 @@ function Registration() {
 
     let resp = await apiRegister(registrationData);
 
-    console.log(resp);
-
     if (resp === undefined) {
       showErrorToastNotification(<p>Please try again after sometime</p>);
     } else {

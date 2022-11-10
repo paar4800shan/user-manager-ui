@@ -51,7 +51,6 @@ function LoanApplication() {
   const clickedSubmit = async () => {
     // Validation
     let dropdownvalidation = validateBranchName(loanInfo, branches);
-
     if (!dropdownvalidation.status) {
       showErrorToastNotification(dropdownvalidation.message);
       return;
@@ -73,8 +72,6 @@ function LoanApplication() {
     }
     let resp = await apiLoan({ ...loanInfo, branch: selectedBranch });
 
-    console.log(resp);
-
     if (resp === undefined) {
       showErrorToastNotification(<p>Please try again after sometime</p>);
     } else {
@@ -88,8 +85,6 @@ function LoanApplication() {
         showErrorToastNotification(<p>{resp.data}</p>);
       }
     }
-
-    console.log(loanInfo);
   };
 
   return (

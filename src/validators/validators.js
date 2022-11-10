@@ -14,11 +14,17 @@ export const validatePassword = (data) => {
 };
 
 export const validateDropdown = (data, values) => {
-  console.log(data, values);
   for (let i = 0; i < values.length; i++) {
-    if (values[i].id === data) return false;
+    if (values[i].id === Number(data)) return true;
   }
-  return true;
+  return false;
+};
+
+export const validateTransactionDropdown = (data, values) => {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].id === data) return true;
+  }
+  return false;
 };
 
 export const validateNegativeAmount = (data) => {

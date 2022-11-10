@@ -4,10 +4,13 @@ import {
   validateEmptyData,
   validateTransactionAmount,
   validateNegativeAmount,
+  validateTransactionDropdown,
 } from "./validators";
 
 export const validateTransactionManagementForm = (data) => {
-  if (validateDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)) {
+  if (
+    !validateTransactionDropdown(data.transactionType, TRANSACTION_TYPE_VALUES)
+  ) {
     return {
       status: false,
       message: "Invalid Transaction Type",
