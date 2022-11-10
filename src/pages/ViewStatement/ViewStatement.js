@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -37,6 +37,15 @@ function ViewStatement() {
     viewStatementDataFormat
   );
 
+  useEffect(() => {
+    changeViewStatementData({
+      key: "userID",
+      value: localStorage.getItem("userID"),
+    });
+
+    return () => {};
+  }, []);
+
   const changeViewStatementData = (args) => {
     let prevState = viewStatementData;
     prevState[args.key] = args.value;
@@ -62,9 +71,9 @@ function ViewStatement() {
         setviewTable(true);
         settransactionsData(resp.data);
       } else if (resp.status >= 400 && resp.status < 500) {
-        showErrorToastNotification(<p>{resp.data}</p>);
+        showErrorToastNotification(resp.data);
       } else if (resp.status >= 500 && resp.status < 600) {
-        showErrorToastNotification(<p>{resp.data}</p>);
+        showErrorToastNotification(resp.data);
       }
     }
   };
